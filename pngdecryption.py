@@ -33,6 +33,6 @@ def process_decryption(inputFilePath, outputFilePath, key, encrySig):
         print(f"{os.path.basename(inputFilePath)} does not exist.")
 
 if __name__ == "__main__":
-    encrypted_img_path = os.path.join(os.getcwd(), 'test_decrtpy.png')  # 假设加密的文件名为test.png
-    decrypted_img_path = os.path.join(os.getcwd(), 'test_encrypt.png')  # 解密后要保存的新文件名
+    encrypted_img_path = os.path.join(os.getcwd(), 'test_encrypt.png')  # 假设加密的文件名为test.png
+    decrypted_img_path = os.path.join(os.getcwd(), 'test_decrypt.png')  # 解密后要保存的新文件名
     process_decryption(encrypted_img_path, decrypted_img_path, _KEY, _ENCRYSIG)
