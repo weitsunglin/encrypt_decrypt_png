@@ -26,7 +26,7 @@ def process_decryption(inputFilePath, outputFilePath, key, encrySig):
             if decryptedData is not None:
                 with open(outputFilePath, 'wb') as outFile:
                     outFile.write(decryptedData)
-                print(f"{os.path.basename(inputFilePath)} has been decrypted and saved as {os.path.basename(outputFilePath)}.")
+                print(f"{os.path.basename(inputFilePath)} has been decrypted and saved as {os.path.basename(outputFilePath)}")
             else:
                 print("Decryption failed. The file might not be encrypted with the expected signature.")
     else:
