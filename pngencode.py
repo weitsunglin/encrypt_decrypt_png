@@ -7,7 +7,7 @@ print("cur_dir:",CUR_DIR)
 #CUR_DIR = 'C:\\Users\\shawn\\Desktop'
 _KEY = 'IGS2023' #指定加密密鑰,英文
 _ENCRYSIG = 'PNG'#不可超過_PNGSIG長度
-_PNGSIG = '\x89PNG\r\n\x1a\n'
+_PNGSIG = b'\x89PNG\r\n\x1a\n'  # 注意'b'前綴表示字節字面量
 _PNGIEND = '\x00\x00\x00\x00IEND\xaeB`\x82'
 _ENCRYSOI = 'JP'#不可超過_JPGSOI長度
 _JPGSOI = '\xff\xd8'
@@ -16,18 +16,14 @@ _JPGEOI = '\xff\xd9'
 def isPNGSig(bytes_8):
     return bytes_8 == _PNGSIG
 
-def isPNG(absPath):#判斷是否是PNG圖片
-    """
-    :param absPath: 文件的绝对路径
-    :return: {Bool}
-    """
+def isPNG(absPath):
     isFile = os.path.isfile(absPath)
     hasPNGSig = False
-    fileExt = os.path.splitext(absPath)[1]
-    isPngExt = (fileExt == ".png" or fileExt == ".PNG")
+    fileExt = os.path.splitext(absPath)[1].lower()  # 不區分大小寫
+    isPngExt = fileExt == ".png"
     if isFile and isPngExt:
-        with open(absPath,"rb") as file:
-            hasPNGSig = isPNGSig(file.read(8)[:8])
+        with open(absPath, "rb") as file:
+            hasPNGSig = isPNGSig(file.read(8))
     return isFile and isPngExt and hasPNGSig
 
 #獲取filesig是否是jpg
