@@ -15,9 +15,9 @@ jobs:
       with:
         python-version: '3.x'
 
-    - name: Run pngencode.py
+    - name: Run pngencryption.py
       run: |
-        python pngencode.py
+        python pngencryption.py
         
     - name: Upload Encrypted Image
       uses: actions/upload-artifact@v2
