@@ -18,3 +18,11 @@ jobs:
     - name: Run pngencode.py
       run: |
         python pngencode.py
+        
+    - name: Upload Encrypted Image
+      uses: actions/upload-artifact@v2
+      with:
+        name: encrypted-images
+        path: |
+          *.png
+          *.jpg
