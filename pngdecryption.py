@@ -30,8 +30,8 @@ def process_decryption(filePath, key, encrySig):
     print(f"{os.path.basename(filePath)} has been decrypted.")
 
 if __name__ == "__main__":
-    encrypted_img_path = os.path.join(os.getcwd(), 'test_decrtpy.png')
-    if os.path.exists(encrypted_img_path):
-        process_decryption(encrypted_img_path, _KEY, _ENCRYSIG)
+    decrypted_img_path = os.path.join(os.getcwd(), 'test_decrtpy.png')
+    if os.path.exists(decrypted_img_path):
+        process_decryption(decrypted_img_path, _KEY, _ENCRYSIG)
     else:
         print("Encrypted test.png does not exist in the script directory.")
