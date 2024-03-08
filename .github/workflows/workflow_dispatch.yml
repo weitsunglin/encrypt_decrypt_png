@@ -1,0 +1,20 @@
+name: Decrypt Images
+
+on:
+  workflow_dispatch:
+    inputs:
+      key:
+        description: 'Decryption Key'
+        required: true
+        default: 'YourDefaultKey'
+
+jobs:
+  decrypt:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Decrypting Images
+      run: |
+        echo "Decrypting images using provided key."
+        # 这里替换为实际解密命令
+        echo "Decryption key: ${{ github.event.inputs.key }}"
