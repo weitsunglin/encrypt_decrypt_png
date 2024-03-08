@@ -1,7 +1,7 @@
 import os
 
 # 定义加密参数
-_KEY = 'IGS2023'.encode('utf-8')  # 将密钥转换为bytes
+_KEY = 'TLS'.encode('utf-8')  # 将密钥转换为bytes
 _ENCRYSIG = b'PNG'  # 以bytes形式指定加密签名
 
 def encryption(fileData, key, encryS):
