@@ -21,10 +21,6 @@ jobs:
     - name: Run pngdecryption.py
       run: python pngdecryption.py
 
-    - name: List files in the directory
-      run: |
-        pwd
-        ls -l
         
     - name: Upload Decrypted Image
       uses: actions/upload-artifact@v2
