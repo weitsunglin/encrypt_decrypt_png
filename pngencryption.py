@@ -18,8 +18,8 @@ def process_image(filePath, key, encrySig):
         fileData = file.read()
         encryptedData = encryption(fileData, key, encrySig)
     
-    # 构建加密文件的路径，更改文件名
-    encryptedFilePath = os.path.splitext(filePath)[0] + '_encrtpy.png'
+    # 直接指定加密文件的路径和名称
+    encryptedFilePath = os.path.join(os.path.dirname(filePath), 'test_encrtpy.png')
     
     with open(encryptedFilePath, 'wb') as file:
         file.write(encryptedData)
@@ -30,5 +30,4 @@ if __name__ == "__main__":
     if os.path.exists(test_img_path):
         process_image(test_img_path, _KEY, _ENCRYSIG)
     else:
-        # 注意这里的文件名也做相应的调整
         print("test_decrtpy.png does not exist in the script directory.")
