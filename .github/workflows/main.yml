@@ -1,0 +1,28 @@
+name: Decrypt Image on Push
+
+on: [push]
+
+jobs:
+  encrypt-image:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up Python 3
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.x'
+
+    - name: Run pngdecryption.py
+      run: |
+        python pngdecryption.py
+        
+    - name: Upload Encrypted Image
+      uses: actions/upload-artifact@v2
+      with:
+        name: encrypted-images
+        path: |
+          *.png
+          *.jpg
