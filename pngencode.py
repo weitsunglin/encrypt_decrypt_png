@@ -5,13 +5,13 @@ import time
 CUR_DIR = os.getcwd();
 print("cur_dir:",CUR_DIR)
 #CUR_DIR = 'C:\\Users\\shawn\\Desktop'
-_KEY = 'IGS2023' #指定加密密鑰,英文
-_ENCRYSIG = 'PNG'#不可超過_PNGSIG長度
-_PNGSIG = '\x89PNG\r\n\x1a\n'
-_PNGIEND = '\x00\x00\x00\x00IEND\xaeB`\x82'
-_ENCRYSOI = 'JP'#不可超過_JPGSOI長度
-_JPGSOI = '\xff\xd8'
-_JPGEOI = '\xff\xd9'
+_KEY = 'IGS2023'.encode('utf-8')  # 將密鑰轉換為bytes
+_ENCRYSIG = b'PNG'  # 以bytes形式指定加密簽名
+_PNGSIG = b'\x89PNG\r\n\x1a\n'
+_PNGIEND = b'\x00\x00\x00\x00IEND\xaeB`\x82'
+_JPGSOI = b'\xff\xd8'
+_JPGEOI = b'\xff\xd9'
+_ENCRYSOI = b'JP'  # 更新為字節串形式
 #獲取filesig是否是png
 def isPNGSig(bytes_8):
     return bytes_8 == _PNGSIG
@@ -76,24 +76,13 @@ def preProcessJpg(jpgData):#预備處理jpg圖片數據
     else:
         return lostHeadData
 
-def encryption(fileData,key,encryS):#加密操作 ascii占一个字節
-    """
-    加密png數據
-    :param fileData:{bytes}預備處理後的圖片數據
-    :param key:{str}密鑰
-    :return:{bytes}加密後的數據
-    """
-    assert type(key) is str
-    k = key.encode("utf8")
-    klen= len(k)
-    kindex = 0
-    fileData = bytearray(fileData)
-    for i,v in enumerate(fileData):
-        if kindex >= klen:
-            kindex = 0
-        fileData[i] = ord(chr(v)) ^ ord(k[kindex])#加密
-        kindex = kindex + 1
-    return encryS + fileData
+def encryption(fileData, key, encryS):
+    """加密操作"""
+    klen = len(key)
+    encryptedData = bytearray(fileData)
+    for i, byte in enumerate(encryptedData):
+        encryptedData[i] = byte ^ key[i % klen]
+    return encryS + encryptedData
 
 #處理图片
 def processPNG(filePath):
@@ -140,13 +129,23 @@ def traverseDir(absDir):#遍歷當前目錄以及遞迴的子目錄，找到所�
         else:
             pass
 
+def process_image(filePath, key, is_png=True):
+    with open(filePath, 'rb') as file:
+        fileData = file.read()
+        if is_png:
+            encryptedData = encryption(fileData[8:], key, _ENCRYSIG)  # PNG: 從第8字節開始加密
+        else:
+            encryptedData = encryption(fileData[2:-2], key, _ENCRYSOI)  # JPG: 移除SOI和EOI後加密
+    with open(filePath, 'wb') as file:
+        file.write(encryptedData)
 
-#------------------- 主函式-------------------------#
-#start_clock = time.clock()
-filenum = 0
-#traverseDir(os.path.join(CUR_DIR,"png2"))
-traverseDir(CUR_DIR)
-#end_clock = time.clock()
-#time = (end_clock - start_clock)*1000
-print("encrypt %d Png Pictures"%filenum)
-#print("use time %fms"%time)  
+
+
+if __name__ == "__main__":
+    CUR_DIR = os.getcwd()
+    test_img_path = os.path.join(CUR_DIR, 'test.png')
+    if os.path.exists(test_img_path):
+        process_image(test_img_path, _KEY, _ENCRYSIG)
+        print("test.png has been encrypted.")
+    else:
+        print("test.png does not exist in the script directory.")
