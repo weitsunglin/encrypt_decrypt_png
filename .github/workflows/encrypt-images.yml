@@ -3,7 +3,7 @@ name: Encrypt Image on Push
 on:
   push:
     branches:
-      - test
+      - main
 jobs:
   encrypt-image:
     runs-on: ubuntu-latest
