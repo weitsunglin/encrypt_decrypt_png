@@ -1,6 +1,11 @@
 name: Decrypt Image on Push
 
-on: [push]
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'pngdecryption.py'
 
 jobs:
   decrypt-image:
