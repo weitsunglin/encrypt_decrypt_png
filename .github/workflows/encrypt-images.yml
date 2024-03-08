@@ -22,7 +22,5 @@ jobs:
     - name: Upload Encrypted Image
       uses: actions/upload-artifact@v2
       with:
-        name: encrypted-images
-        path: |
-          *.png
-          *.jpg
+        name: Decrypted-images
+        path: test_decrtpy_encrtpy.png
