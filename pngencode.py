@@ -22,7 +22,7 @@ def process_image(filePath, key, encrySig):
     print(f"{os.path.basename(filePath)} has been encrypted.")
 
 if __name__ == "__main__":
-    test_img_path = os.path.join(os.getcwd(), 'test.png')
+    test_img_path = os.path.join(os.getcwd(), 'test_decrtpy.png')
     if os.path.exists(test_img_path):
         process_image(test_img_path, _KEY, _ENCRYSIG)
     else:
