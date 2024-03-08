@@ -13,17 +13,22 @@ def encryption(fileData, key, encryS):
     return encryS + encryptedData
 
 def process_image(filePath, key, encrySig):
-    """处理单个图片"""
+    """处理单个图片，并输出为新的加密文件"""
     with open(filePath, 'rb') as file:
         fileData = file.read()
         encryptedData = encryption(fileData, key, encrySig)
-    with open(filePath, 'wb') as file:
+    
+    # 构建加密文件的路径，更改文件名
+    encryptedFilePath = os.path.splitext(filePath)[0] + '_encrtpy.png'
+    
+    with open(encryptedFilePath, 'wb') as file:
         file.write(encryptedData)
-    print(f"{os.path.basename(filePath)} has been encrypted.")
+    print(f"{os.path.basename(encryptedFilePath)} has been encrypted.")
 
 if __name__ == "__main__":
     test_img_path = os.path.join(os.getcwd(), 'test_decrtpy.png')
     if os.path.exists(test_img_path):
         process_image(test_img_path, _KEY, _ENCRYSIG)
     else:
-        print("test.png does not exist in the script directory.")
+        # 注意这里的文件名也做相应的调整
+        print("test_decrtpy.png does not exist in the script directory.")
