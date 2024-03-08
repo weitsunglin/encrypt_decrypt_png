@@ -4,9 +4,6 @@ on:
   push:
     branches:
       - main
-    paths:
-      - 'pngencryption.py'
-
 jobs:
   encrypt-image:
     runs-on: ubuntu-latest
