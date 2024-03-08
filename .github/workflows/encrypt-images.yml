@@ -9,10 +9,10 @@ jobs:
     - name: Checkout Repository
       uses: actions/checkout@v2
 
-    - name: Set up Python 2.7
+    - name: Set up Python 3
       uses: actions/setup-python@v2
       with:
-        python-version: 2.7
+        python-version: 3.8 # 或者選擇你喜歡的其他Python 3版本
 
     - name: Install dependencies
       run: |
@@ -20,7 +20,7 @@ jobs:
         # pip install -r requirements.txt
 
     - name: Encrypt PNG Image
-      run: python pngencode.py
+      run: python pngencode.py  # 確保你的腳本是Python 3兼容的
 
     - name: Commit and Push Encrypted Image
       run: |
