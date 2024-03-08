@@ -3,7 +3,7 @@ name: Decrypt Image on Push
 on: [push]
 
 jobs:
-  encrypt-image:
+  decrypt-image:
     runs-on: ubuntu-latest
 
     steps:
@@ -16,13 +16,10 @@ jobs:
         python-version: '3.x'
 
     - name: Run pngdecryption.py
-      run: |
-        python pngdecryption.py
+      run: python pngdecryption.py
         
     - name: Upload Decrypted Image
       uses: actions/upload-artifact@v2
       with:
         name: Decrypted-images
-        path: |
-          *.png
-          *.jpg
+        path: test_decrypted.png
