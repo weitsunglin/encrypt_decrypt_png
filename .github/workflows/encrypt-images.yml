@@ -1,6 +1,11 @@
 name: Encrypt Image on Push
 
-on: [push]
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'pngencryption.py'
 
 jobs:
   encrypt-image:
@@ -22,5 +27,5 @@ jobs:
     - name: Upload Encrypted Image
       uses: actions/upload-artifact@v2
       with:
-        name: Decrypted-images
-        path: test_decrtpy_encrtpy.png
+        name: Encrypted-images
+        path: test_encrtpy.png
