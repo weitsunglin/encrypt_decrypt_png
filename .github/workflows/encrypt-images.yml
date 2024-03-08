@@ -1,31 +1,20 @@
-name: Encrypt Images
+name: Encrypt Image on Push
 
 on: [push]
 
 jobs:
-  encrypt:
+  encrypt-image:
     runs-on: ubuntu-latest
+
     steps:
-    - name: Checkout Repository
+    - name: Checkout code
       uses: actions/checkout@v2
 
     - name: Set up Python 3
       uses: actions/setup-python@v2
       with:
-        python-version: 3.8 # 或者選擇你喜歡的其他Python 3版本
+        python-version: '3.x'
 
-    - name: Install dependencies
+    - name: Run pngencode.py
       run: |
-        # 如果有依賴可以在這裡安裝
-        # pip install -r requirements.txt
-
-    - name: Encrypt PNG Image
-      run: python pngencode.py  # 確保你的腳本是Python 3兼容的
-
-    - name: Commit and Push Encrypted Image
-      run: |
-        git config --local user.email "weitsunglin@github.com"
-        git config --local user.name "GitHub Action"
-        git add test.png
-        git commit -m "Encrypt test.png" || echo "No changes to commit"
-        git push
+        python pngencode.py
